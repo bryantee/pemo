@@ -6,9 +6,17 @@
   "author": "bryan swagerty",
   "license": "MIT",
   "devDependencies": {
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1",
     "typescript": "^3.9.6"
   },
   "scripts": {
     "build": "tsc"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
