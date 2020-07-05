@@ -12,6 +12,12 @@ export const pomodoroStateReducer: React.Reducer<
         timeRemainingSeconds: state.timeRemainingSeconds - 1,
       };
 
+    case 'set-status':
+      return {
+        ...state,
+        currentStatus: action?.payload?.status ?? 'idle',
+      };
+
     default:
       return state;
   }
