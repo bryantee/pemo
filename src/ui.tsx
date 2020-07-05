@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Box, Color, Text, useApp, useInput } from 'ink';
 import { useState } from 'react';
+import { Box, Text, useApp, useInput } from 'ink';
 
-const InkBox = require('ink-box');
+import { PomodoroStateProvider } from './context/pomodoroState';
+import { RemainingCount } from './components/RemaingCount';
+
 const BigText = require('ink-big-text');
 
 const App = () => {
@@ -24,18 +26,9 @@ const App = () => {
       margin={2}
     >
       <BigText font="simple3d" text="Pemo" />
-      <Color green>
-        <Text>Hello World! 🌎</Text>
-      </Color>
-      <InkBox
-        float="center"
-        margin={1}
-        padding={1}
-        borderColor="cyan"
-        borderStyle="round"
-      >
-        <Text>Hello!</Text>
-      </InkBox>
+      <PomodoroStateProvider>
+        <RemainingCount />
+      </PomodoroStateProvider>
       <Box marginTop={2}>
         {isQuitting ? (
           <Text>QUITTING</Text>
