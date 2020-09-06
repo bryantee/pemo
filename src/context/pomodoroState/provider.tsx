@@ -21,7 +21,21 @@ const PomodoroStateProvider: React.FC<any> = ({ children }) => {
     dispatch({ type: 'set-status', payload: { status } });
   }, []);
 
-  const { timeRemainingSeconds } = state;
+  const start = () => {
+    if (currentStatus === 'break-session') {
+      dispatch({ type: 'reset' });
+    } else {
+      dispatch({ type: 'decrement' });
+      dispatch({ type: 'set-status', payload: { status: 'pomodoro-session' } });
+    }
+  };
+
+  const pause = () => {
+    dispatch({ type: 'set-status', payload: { status: 'paused' } });
+    clearInterval(timer);
+  };
+
+  const { timeRemainingSeconds, currentStatus } = state;
 
   useEffect(() => {
     if (timeRemainingSeconds === 0) {
@@ -31,13 +45,15 @@ const PomodoroStateProvider: React.FC<any> = ({ children }) => {
   }, [timeRemainingSeconds]);
 
   useEffect(() => {
-    timer = setInterval(decrementCount, 1000);
+    if (currentStatus == 'pomodoro-session') {
+      timer = setInterval(decrementCount, 1000);
+    }
 
     return () => clearInterval(timer);
-  }, []);
+  }, [currentStatus]);
 
   return (
-    <pomodoroStateContext.Provider value={state}>
+    <pomodoroStateContext.Provider value={{ ...state, start, pause }}>
       {children}
     </pomodoroStateContext.Provider>
   );

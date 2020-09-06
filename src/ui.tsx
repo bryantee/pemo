@@ -4,6 +4,7 @@ import { Box, Text, useApp, useInput } from 'ink';
 
 import { PomodoroStateProvider } from './context/pomodoroState';
 import { RemainingCount } from './components/RemaingCount';
+import { ActionHandler } from './components/ActionHandler';
 
 const BigText = require('ink-big-text');
 
@@ -28,6 +29,7 @@ const App = () => {
       <BigText font="simple3d" text="Pemo" />
       <PomodoroStateProvider>
         <RemainingCount />
+        <ActionHandler showInstructions />
       </PomodoroStateProvider>
       <Box marginTop={2}>
         {isQuitting ? (
