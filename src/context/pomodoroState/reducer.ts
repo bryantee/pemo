@@ -1,10 +1,12 @@
 import * as React from 'react';
-import { PomodoroStateContext, Action } from './types';
+import { PomodoroStateContext, Action, PomodoroState } from './types';
 
-export const pomodoroStateReducer: React.Reducer<
-  PomodoroStateContext,
-  Action
-> = (state, action): PomodoroStateContext => {
+const DEFAULT_SESSION_LENGTH = 25 * 60;
+
+export const pomodoroStateReducer: React.Reducer<PomodoroState, Action> = (
+  state,
+  action
+): PomodoroState => {
   switch (action.type) {
     case 'decrement':
       return {
@@ -16,6 +18,13 @@ export const pomodoroStateReducer: React.Reducer<
       return {
         ...state,
         currentStatus: action?.payload?.status ?? 'idle',
+      };
+
+    case 'reset':
+      return {
+        ...state,
+        currentStatus: 'pomodoro-session',
+        timeRemainingSeconds: DEFAULT_SESSION_LENGTH,
       };
 
     default:

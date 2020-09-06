@@ -4,7 +4,14 @@ export type PomodoroStatus =
   | 'paused'
   | 'idle';
 
-export type PomodoroStateContext = {
+export type PomodoroStateContext = PomodoroStateActions & PomodoroState;
+
+export type PomodoroStateActions = {
+  pause: () => void;
+  start: () => void;
+};
+
+export type PomodoroState = {
   currentStatus: PomodoroStatus;
   timeRemainingSeconds: number;
 };
